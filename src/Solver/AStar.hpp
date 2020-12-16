@@ -16,12 +16,11 @@ class AStar : public ISolver {
 private:
 
     std::shared_ptr<Maze> &_maze;
-    /*std::priority_queue<Node *, std::vector<Node *>, std::less<>> _open;*/
     std::unique_ptr<IHeap> _open;
 
 public:
 
-    AStar(std::shared_ptr<Maze> &maze);
+    explicit AStar(std::shared_ptr<Maze> &maze);
 
     bool solveMaze() override;
 
@@ -42,7 +41,7 @@ private:
      * Set the node in the close list as visited
      * @param current
      */
-    void closeNode(Node *current);
+    static void closeNode(Node *current);
 
     /**
      * Calculate the distance between two points
@@ -50,7 +49,7 @@ private:
      * @param second position
      * @return the distance
      */
-    static float calculateDistance(Vector2d<int> &first, Vector2d<int> &second);
+    static double calculateDistance(Vector2d<int> &first, Vector2d<int> &second);
 
     /**
      * From the finishing node, will set the solution path in the nodes

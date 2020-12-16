@@ -58,7 +58,7 @@ Node *AStar::getOpenNode() {
     return current;
 }
 
-float AStar::calculateDistance(Vector2d<int> &first, Vector2d<int> &second) {
+double AStar::calculateDistance(Vector2d<int> &first, Vector2d<int> &second) {
     return std::sqrt(std::pow((first.x - second.x), 2) + std::pow((first.y - second.y), 2));
 }
 
