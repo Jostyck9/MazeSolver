@@ -8,6 +8,9 @@
 #include <string>
 #include "../Node/Node.hpp"
 
+/**
+ * Container for the maze graph
+ */
 class Maze {
 private:
     enum Color {
@@ -33,12 +36,27 @@ public:
 
     ~Maze();
 
+    /**
+     * Return the starting node of the maze
+     * @return starting node
+     */
     Node *getStartingNode();
 
+    /**
+     * Return the finishing node of the maze
+     * @return finishing node
+     */
     Node *getFinishingNode();
 
+    /**
+     * Display the maze
+     */
     void display();
 
+    /**
+     * Define if the graph will be displayed with colors or not
+     * @param displayColor true or false
+     */
     void setDisplayColor(bool displayColor);
 
 private:

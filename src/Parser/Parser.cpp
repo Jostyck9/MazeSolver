@@ -86,12 +86,12 @@ void Parser::fillLine(std::string &line, int y, Node **lineToFill) {
         // Create path node for the graph
         _maze[y][x] = createNode(Vector2d<int>(x, y));
         if (x > 0 && _maze[y][x - 1] != nullptr) {
-            _maze[y][x - 1]->neighbours[RIGHT] = _maze[y][x];
-            _maze[y][x]->neighbours[LEFT] = _maze[y][x - 1];
+            _maze[y][x - 1]->neighbours[Node::RIGHT] = _maze[y][x];
+            _maze[y][x]->neighbours[Node::LEFT] = _maze[y][x - 1];
         }
         if (y > 0 && _maze[y - 1][x] != nullptr) {
-            _maze[y - 1][x]->neighbours[DOWN] = _maze[y][x];
-            _maze[y][x]->neighbours[UP] = _maze[y - 1][x];
+            _maze[y - 1][x]->neighbours[Node::DOWN] = _maze[y][x];
+            _maze[y][x]->neighbours[Node::UP] = _maze[y - 1][x];
         }
 
         // Save start

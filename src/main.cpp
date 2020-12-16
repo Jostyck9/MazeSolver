@@ -18,28 +18,6 @@ void printHelp() {
 }
 
 int main(int argc, char **argv) {
-    /*std::unique_ptr<IHeap<int>> test = std::make_unique<MinHeap<int>>(20);
-
-    int value1 = 10;
-    int value2 = 5;
-    int value3 = 7;
-    int value4 = 9;
-    int value5 = 1;
-
-    test->Insert(10);
-    test->Insert(5);
-    test->Insert(7);
-    test->Insert(9);
-    test->Insert(1);
-    test->Insert(1);
-
-    auto test1 = test->extractTop();
-    auto test2 = test->extractTop();
-    auto test3 = test->extractTop();
-    auto test4 = test->extractTop();
-    auto test5 = test->extractTop();
-    auto test6 = test->extractTop();*/
-
     if (argc != 2 && argc != 3) {
         std::cerr << "Missing argument, a filepath must be given" << std::endl;
         printHelp();

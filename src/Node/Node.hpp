@@ -8,20 +8,9 @@
 #include <ostream>
 #include "../Vector2d.hpp"
 
-enum State {
-    CLOSED,
-    OPEN,
-    NOT_VISITED,
-    PATH
-};
-
-enum Direction {
-    UP = 0,
-    RIGHT = 1,
-    DOWN = 2,
-    LEFT = 3
-};
-
+/**
+ * Node that characterize the graph
+ */
 class Node {
 private:
     double _gValue = 0;
@@ -29,17 +18,41 @@ private:
     double _fValue = 0;
 
 public:
+    enum State {
+        CLOSED,
+        OPEN,
+        NOT_VISITED,
+        PATH
+    };
+
+    enum Direction {
+        UP = 0,
+        RIGHT = 1,
+        DOWN = 2,
+        LEFT = 3
+    };
+
     Vector2d<int> position;
     State state = NOT_VISITED;
     Node *neighbours[4] = {nullptr, nullptr, nullptr, nullptr};
     Node *parent = nullptr;
 
+    /**
+     * Return the distance between the starting node and this node
+     * @return the distance
+     */
     double gValue();
-    double hValue();
-    double fValue();
 
-    void setGValue(Vector2d<int> &startingPosition);
+    /**
+     * Set the distance between the starting node and this node
+     * @param gValue
+     */
     void setGValue(double gValue);
+
+    /**
+     * Calculate and set the distance between the goal node and this node
+     * @param goalPosition
+     */
     void setHValue(Vector2d<int> &goalPosition);
 
     bool operator<(const Node &rhs) const;

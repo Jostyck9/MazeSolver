@@ -17,7 +17,7 @@ private:
 
     std::shared_ptr<Maze> &_maze;
     /*std::priority_queue<Node *, std::vector<Node *>, std::less<>> _open;*/
-    std::unique_ptr<IHeap<Node *>> _open;
+    std::unique_ptr<IHeap> _open;
 
 public:
 
@@ -26,14 +26,35 @@ public:
     bool solveMaze() override;
 
 private:
+    /**
+     * Set the node in the open MinHeap
+     * @param current - node to inset
+     */
     void openNode(Node *current);
 
+    /**
+     * Get the node with the lowest F value
+     * @return node
+     */
     Node *getOpenNode();
 
+    /**
+     * Set the node in the close list as visited
+     * @param current
+     */
     void closeNode(Node *current);
 
+    /**
+     * Calculate the distance between two points
+     * @param first position
+     * @param second position
+     * @return the distance
+     */
     static float calculateDistance(Vector2d<int> &first, Vector2d<int> &second);
 
+    /**
+     * From the finishing node, will set the solution path in the nodes
+     */
     void applyPathToNode();
 };
 

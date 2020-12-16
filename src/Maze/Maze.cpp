@@ -45,19 +45,19 @@ void Maze::display() {
                 //Colors
                 switch (_maze[y][x]->state) {
 
-                    case State::NOT_VISITED:
+                    case Node::State::NOT_VISITED:
                         toPrint += printColor(DEFAULT) + _freeSpace;
                         break;
 
-                    case State::OPEN:
+                    case Node::State::OPEN:
                         toPrint += printColor(GREEN) + _freeSpace;
                         break;
 
-                    case State::CLOSED:
+                    case Node::State::CLOSED:
                         toPrint += printColor(RED) + _freeSpace;
                         break;
 
-                    case State::PATH:
+                    case Node::State::PATH:
                         toPrint += printColor(BLUE) + printColor(BLUE) + _path;
                         break;
 

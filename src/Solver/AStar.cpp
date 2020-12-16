@@ -12,7 +12,6 @@ bool AStar::solveMaze() {
     openNode(_maze->getStartingNode());
     _maze->display();
 
-    //while (!_open.empty()) {
     while (!_open->isEmpty()) {
         Node *current = getOpenNode();
         closeNode(current);
@@ -24,57 +23,51 @@ bool AStar::solveMaze() {
         }
 
         for (auto &neighbour : current->neighbours) {
-            if (neighbour == nullptr || neighbour->state == State::CLOSED)
+            if (neighbour == nullptr || neighbour->state == Node::State::CLOSED)
                 continue;
 
             double distanceFromStart = calculateDistance(startingPosition, neighbour->position);
-            if (distanceFromStart < neighbour->gValue() || neighbour->state != State::OPEN) {
+            if (distanceFromStart < neighbour->gValue() || neighbour->state != Node::State::OPEN) {
                 neighbour->setGValue(distanceFromStart);
                 neighbour->setHValue(finishingPosition);
 
                 neighbour->parent = current;
 
-                if (neighbour->state != State::OPEN)
+                if (neighbour->state != Node::State::OPEN)
                     openNode(neighbour);
             }
-            //_maze->display();
         }
     }
 
     return false;
 }
 
-AStar::AStar(std::shared_ptr<Maze> &maze) : _maze(maze), _open(std::make_unique<MinHeap<Node*>>(2000)) {}
+AStar::AStar(std::shared_ptr<Maze> &maze) : _maze(maze), _open(std::make_unique<MinHeap>(2000)) {}
 
 void AStar::openNode(Node *current) {
-    current->state = State::OPEN;
-    //_open.push(current);
+    current->state = Node::State::OPEN;
     _open->insert(current);
 }
 
 void AStar::closeNode(Node *current) {
-    current->state = State::CLOSED;
+    current->state = Node::State::CLOSED;
 }
 
 Node *AStar::getOpenNode() {
-    /*Node *current = _open.top();
-    _open.pop();*/
     Node *current = _open->extractTop();
     return current;
 }
 
 float AStar::calculateDistance(Vector2d<int> &first, Vector2d<int> &second) {
-    auto value1 = std::pow((first.x - second.x), 2);
-    auto value2 = std::pow((first.y - second.y), 2);
-    return std::sqrt(value1 + value2);
+    return std::sqrt(std::pow((first.x - second.x), 2) + std::pow((first.y - second.y), 2));
 }
 
 void AStar::applyPathToNode() {
     Node *current = _maze->getFinishingNode();
 
-    current->state = State::PATH;
+    current->state = Node::State::PATH;
     while (current->parent != nullptr) {
         current = current->parent;
-        current->state = State::PATH;
+        current->state = Node::State::PATH;
     }
 }

@@ -10,6 +10,10 @@ class ISolver {
 public:
     virtual ~ISolver() = default;
 
+    /**
+     * Solve the maze by applying the algorithm
+     * @return success of the operation - True an exit has been found, false no solution
+     */
     virtual bool solveMaze() = 0;
 
 };

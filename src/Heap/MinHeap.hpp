@@ -9,16 +9,14 @@
 #include <stdexcept>
 #include "IHeap.hpp"
 
-template<class T>
-class MinHeap : public IHeap<T> {
+class MinHeap : public IHeap {
 private:
-    bool _isPtr = std::is_pointer<T>::value;
-    T *_array;
+    Node **_array;
     int _size;
     int _lastLeafIndex = -1;
 
 public:
-    MinHeap(int size) : _array(new T[size]()), _size(size) {
+    MinHeap(int size) : _array(new Node *[size]()), _size(size) {
     }
 
     ~MinHeap() {
@@ -31,7 +29,7 @@ public:
     * @return true is succeed, false otherwise
     * @throw std::out_of_range
     */
-    bool insert(T value) override {
+    bool insert(Node *value) override {
         unsigned int freeSpaceIndex;
 
         try {
@@ -46,7 +44,6 @@ public:
             return false;
         }
         heapifyUp(freeSpaceIndex);
-        //display();
         return true;
     }
 
@@ -55,7 +52,7 @@ public:
      * @return the corresponding value
      * @throw std::out_of_range
      */
-    T extractTop() override {
+    Node *extractTop() override {
         if (_lastLeafIndex < 0) {
             throw std::out_of_range("Heap is empty");
         }
@@ -116,7 +113,7 @@ private:
      * @param i
      * @return true if the node is added, false otherwise
      */
-    bool addAtIndex(T value, unsigned int i) {
+    bool addAtIndex(Node *value, unsigned int i) {
         if (i >= _size)
             return false;
 
@@ -131,7 +128,7 @@ private:
      * @param the value
      * @throw std::out_of_range
      */
-    T extractAtIndex(unsigned int i) {
+    Node *extractAtIndex(unsigned int i) {
         if (i >= _size || i > _lastLeafIndex)
             throw std::out_of_range("Couldn't extract value");
 
@@ -158,9 +155,7 @@ private:
         int parentIndex = indexParent(nodeIndex);
 
         while (parentIndex >= 0) {
-            if (_isPtr && _array[parentIndex][0] <= _array[nodeIndex][0])
-                return;
-            else if (_array[parentIndex] <= _array[nodeIndex])
+            if (_array[parentIndex][0] <= _array[nodeIndex][0])
                 return;
 
             switchNodes(parentIndex, nodeIndex);
@@ -178,38 +173,22 @@ private:
             int leftChild = indexLeftChild(nodeIndex);
             int rightChild = indexRightChild(nodeIndex);
 
-            if (_isPtr) {
-                if (leftChild <= _lastLeafIndex && (rightChild > _lastLeafIndex || _array[leftChild][0] <= _array[rightChild][0])) {
-                    if (_array[leftChild][0] > _array[nodeIndex][0])
-                        break;
-                    switchNodes(nodeIndex, leftChild);
-                    nodeIndex = leftChild;
-                    continue;
-                }
+            if (leftChild <= _lastLeafIndex &&
+                (rightChild > _lastLeafIndex || _array[leftChild][0] <= _array[rightChild][0])) {
+                if (_array[leftChild][0] > _array[nodeIndex][0])
+                    break;
+                switchNodes(nodeIndex, leftChild);
+                nodeIndex = leftChild;
+                continue;
+            }
 
-                if (rightChild <= _lastLeafIndex && (leftChild > _lastLeafIndex || _array[leftChild][0] > _array[rightChild][0])) {
-                    if (_array[rightChild][0] > _array[nodeIndex][0])
-                        break;
-                    switchNodes(nodeIndex, rightChild);
-                    nodeIndex = rightChild;
-                    continue;
-                }
-            } else {
-                if (leftChild <= _lastLeafIndex && (rightChild > _lastLeafIndex || _array[leftChild] <= _array[rightChild])) {
-                    if (_array[leftChild] > _array[nodeIndex])
-                        break;
-                    switchNodes(nodeIndex, leftChild);
-                    nodeIndex = leftChild;
-                    continue;
-                }
-
-                if (rightChild <= _lastLeafIndex && (leftChild > _lastLeafIndex || _array[leftChild] > _array[rightChild])) {
-                    if (_array[rightChild] > _array[nodeIndex])
-                        break;
-                    switchNodes(nodeIndex, rightChild);
-                    nodeIndex = rightChild;
-                    continue;
-                }
+            if (rightChild <= _lastLeafIndex &&
+                (leftChild > _lastLeafIndex || _array[leftChild][0] > _array[rightChild][0])) {
+                if (_array[rightChild][0] > _array[nodeIndex][0])
+                    break;
+                switchNodes(nodeIndex, rightChild);
+                nodeIndex = rightChild;
+                continue;
             }
 
             break;
@@ -223,7 +202,7 @@ private:
      * @param second node index
      */
     void switchNodes(unsigned int first, unsigned int second) {
-        T tmpValue = _array[first];
+        Node *tmpValue = _array[first];
 
         _array[first] = _array[second];
         _array[second] = tmpValue;
@@ -235,10 +214,7 @@ private:
             if (i > _lastLeafIndex) {
                 std::cout << "NONE ";
             } else {
-                if (_isPtr)
-                    std::cout << _array[i][0] << " ";
-                else
-                    std::cout << _array[i] << " ";
+                std::cout << _array[i][0] << " ";
             }
         }
         std::cout << std::endl << std::endl;

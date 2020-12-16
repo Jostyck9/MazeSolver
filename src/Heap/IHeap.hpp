@@ -5,7 +5,8 @@
 #ifndef MAZESOLVER_IHEAP_HPP
 #define MAZESOLVER_IHEAP_HPP
 
-template<class T>
+#include "../Node/Node.hpp"
+
 class IHeap {
 public:
     virtual ~IHeap() = default;
@@ -16,14 +17,14 @@ public:
      * @return true is succeed, false otherwise
      * @throw std::out_of_range
      */
-    virtual bool insert(T value) = 0;
+    virtual bool insert(Node *value) = 0;
 
     /**
      * Extract the value at the top of the heap
      * @return the corresponding value
      * @throw std::out_of_range
      */
-    virtual T extractTop() = 0;
+    virtual Node *extractTop() = 0;
 
     /**
      * Say if the heap is empty
