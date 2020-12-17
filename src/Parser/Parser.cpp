@@ -11,7 +11,7 @@ Parser::Parser(std::string &filePath) : _filePath(filePath) {
 }
 
 std::shared_ptr<Maze> Parser::getMaze() {
-    unsigned int currentY = 0;
+    int currentY = 0;
     std::string line;
     std::fstream file = openFile();
 
@@ -65,7 +65,7 @@ void Parser::parseSize(std::string &firstLine) {
 Node ***Parser::createMazeArray() {
     Node ***maze = new Node **[_size.y]();
 
-    for (unsigned int i = 0; i < _size.y; i++) {
+    for (int i = 0; i < _size.y; i++) {
         maze[i] = new Node *[_size.x]();
     }
 

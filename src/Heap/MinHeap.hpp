@@ -30,7 +30,7 @@ public:
     * @throw std::out_of_range
     */
     bool insert(Node *value) override {
-        unsigned int freeSpaceIndex;
+        int freeSpaceIndex;
 
         try {
             freeSpaceIndex = foundFreeNode();
@@ -85,7 +85,7 @@ private:
      * @param i index of the current node
      * @return index of the child
      */
-    unsigned int indexRightChild(unsigned int i) {
+    int indexRightChild(int i) {
         return (2 * i) + 2;
     }
 
@@ -94,7 +94,7 @@ private:
      * @param i index of the current node
      * @return index of the child
      */
-    unsigned int indexLeftChild(unsigned int i) {
+    int indexLeftChild(int i) {
         return (2 * i) + 1;
     }
 
@@ -113,7 +113,7 @@ private:
      * @param i
      * @return true if the node is added, false otherwise
      */
-    bool addAtIndex(Node *value, unsigned int i) {
+    bool addAtIndex(Node *value, int i) {
         if (i >= _size)
             return false;
 
@@ -128,7 +128,7 @@ private:
      * @param the value
      * @throw std::out_of_range
      */
-    Node *extractAtIndex(unsigned int i) {
+    Node *extractAtIndex(int i) {
         if (i >= _size || i > _lastLeafIndex)
             throw std::out_of_range("Couldn't extract value");
 
@@ -141,7 +141,7 @@ private:
      * @return the index of this node
      * @throw std::out_of_range
      */
-    unsigned int foundFreeNode() {
+    int foundFreeNode() {
         if (_lastLeafIndex < _size - 1)
             return _lastLeafIndex + 1;
         throw std::out_of_range("Heap full");
@@ -151,7 +151,7 @@ private:
      * Will move the node up until it will be at the top of his subtree as the minimum value
      * @param nodeIndex index of the node to heapifyUp
      */
-    void heapifyUp(unsigned int nodeIndex) {
+    void heapifyUp(int nodeIndex) {
         int parentIndex = indexParent(nodeIndex);
 
         while (parentIndex >= 0) {
@@ -168,7 +168,7 @@ private:
      * Will move the node up until it will be at the top of his subtree as the minimum value
      * @param nodeIndex index of the node to heapifyDown
      */
-    void heapifyDown(unsigned int nodeIndex) {
+    void heapifyDown(int nodeIndex) {
         while (true) {
             int leftChild = indexLeftChild(nodeIndex);
             int rightChild = indexRightChild(nodeIndex);
@@ -201,7 +201,7 @@ private:
      * @param first node index
      * @param second node index
      */
-    void switchNodes(unsigned int first, unsigned int second) {
+    void switchNodes(int first, int second) {
         Node *tmpValue = _array[first];
 
         _array[first] = _array[second];

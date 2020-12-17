@@ -15,9 +15,9 @@ Maze::Maze(Vector2d<int> size, Node ***maze, Node *startingNode, Node *finishing
 
 Maze::~Maze() {
     if (_maze != nullptr) {
-        for (unsigned int i = 0; i < _size.y; i++) {
+        for (int i = 0; i < _size.y; i++) {
             if (_maze[i] != nullptr) {
-                for (unsigned int j = 0; j < _size.x; j++) {
+                for (int j = 0; j < _size.x; j++) {
                     if (_maze[i][j] != nullptr)
                         delete _maze[i][j];
                 }
@@ -37,9 +37,9 @@ Node *Maze::getFinishingNode() {
 }
 
 void Maze::display() {
-    for (unsigned int y = 0; y < _size.y; y++) {
+    for (int y = 0; y < _size.y; y++) {
         std::string toPrint;
-        for (unsigned int x = 0; x < _size.x; x++) {
+        for (int x = 0; x < _size.x; x++) {
             if (_maze[y][x] != nullptr) {
 
                 //Colors
