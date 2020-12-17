@@ -61,7 +61,7 @@ private:
      * @param size
      * @return the size of the allocation
      */
-    int calculateSizeOpenAllocation(Vector2d<unsigned int> &size);
+    static int calculateSizeOpenAllocation(Vector2d<int> &size);
 };
 
 

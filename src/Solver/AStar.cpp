@@ -14,7 +14,6 @@ bool AStar::solveMaze() {
     Vector2d<int> finishingPosition = _maze->getFinishingNode()->position;
 
     openNode(_maze->getStartingNode());
-    _maze->display();
 
     while (!_open->isEmpty()) {
         //We take the node with the smallest F value
@@ -78,6 +77,6 @@ void AStar::applyPathToNode() {
     }
 }
 
-int AStar::calculateSizeOpenAllocation(Vector2d<unsigned int> &size) {
+int AStar::calculateSizeOpenAllocation(Vector2d<int> &size) {
     return (size.x + size.y) / 2;
 }

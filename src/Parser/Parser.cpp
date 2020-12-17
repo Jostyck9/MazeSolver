@@ -58,8 +58,8 @@ void Parser::parseSize(std::string &firstLine) {
     if (index == std::string::npos)
         throw std::invalid_argument("Invalid file format, the first line needs to have the size delimited by character ','");
 
-    _size.x = std::stoul(firstLine.substr(0, index));
-    _size.y = std::stoul(firstLine.substr(index + 1, firstLine.length()));
+    _size.x = std::stoi(firstLine.substr(0, index));
+    _size.y = std::stoi(firstLine.substr(index + 1, firstLine.length()));
 }
 
 Node ***Parser::createMazeArray() {

@@ -26,13 +26,13 @@ private:
     const char _freeSpace = ' ';
     bool _displayColor = true;
 
-    Vector2d<unsigned int> _size;
+    Vector2d<int> _size;
     Node ***_maze = nullptr;
     Node *_start = nullptr;
     Node *_finish = nullptr;
 
 public:
-    Maze(Vector2d<unsigned int> size, Node ***maze, Node *startingNode, Node *finishingNode);
+    Maze(Vector2d<int> size, Node ***maze, Node *startingNode, Node *finishingNode);
 
     ~Maze();
 
@@ -63,7 +63,7 @@ public:
      * Return the size of the maze
      * @return a vector
      */
-    Vector2d<unsigned int> &getSize();
+    Vector2d<int> &getSize();
 
 private:
     std::string printColor(Color color) const;

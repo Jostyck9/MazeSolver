@@ -19,7 +19,7 @@ private:
     const std::string _wallCharacters = "+-|";
 
     std::string &_filePath;
-    Vector2d<unsigned int> _size;
+    Vector2d<int> _size;
     Node ***_maze = nullptr;
     Node *_startingNode = nullptr;
     Node *_endingNode = nullptr;

@@ -6,7 +6,7 @@
 #include <iostream>
 #include "Maze.hpp"
 
-Maze::Maze(Vector2d<unsigned int> size, Node ***maze, Node *startingNode, Node *finishingNode) : _size(size),
+Maze::Maze(Vector2d<int> size, Node ***maze, Node *startingNode, Node *finishingNode) : _size(size),
                                                                                                  _maze(maze),
                                                                                                  _start(startingNode),
                                                                                                  _finish(finishingNode) {
@@ -86,6 +86,6 @@ void Maze::setDisplayColor(bool displayColor) {
     _displayColor = displayColor;
 }
 
-Vector2d<unsigned int> &Maze::getSize() {
+Vector2d<int> &Maze::getSize() {
     return _size;
 }
