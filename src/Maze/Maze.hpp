@@ -59,6 +59,12 @@ public:
      */
     void setDisplayColor(bool displayColor);
 
+    /**
+     * Return the size of the maze
+     * @return a vector
+     */
+    Vector2d<unsigned int> &getSize();
+
 private:
     std::string printColor(Color color) const;
 };

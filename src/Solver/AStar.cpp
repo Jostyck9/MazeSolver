@@ -5,6 +5,10 @@
 #include <cmath>
 #include "AStar.hpp"
 
+AStar::AStar(std::shared_ptr<Maze> &maze) : _maze(maze) {
+    _open = std::make_unique<MinHeap>(calculateSizeOpenAllocation(maze->getSize()));
+}
+
 bool AStar::solveMaze() {
     Vector2d<int> startingPosition = _maze->getStartingNode()->position;
     Vector2d<int> finishingPosition = _maze->getFinishingNode()->position;
@@ -13,15 +17,19 @@ bool AStar::solveMaze() {
     _maze->display();
 
     while (!_open->isEmpty()) {
+        //We take the node with the smallest F value
         Node *current = getOpenNode();
+
+        //We add it in the close set
         closeNode(current);
 
-        // If we reached the end stop
+        // If we reached the end, we stop
         if (current == _maze->getFinishingNode()) {
             applyPathToNode();
             return true;
         }
 
+        // We visit each neighbour of the node
         for (auto &neighbour : current->neighbours) {
             if (neighbour == nullptr || neighbour->state == Node::State::CLOSED)
                 continue;
@@ -41,8 +49,6 @@ bool AStar::solveMaze() {
 
     return false;
 }
-
-AStar::AStar(std::shared_ptr<Maze> &maze) : _maze(maze), _open(std::make_unique<MinHeap>(2000)) {}
 
 void AStar::openNode(Node *current) {
     current->state = Node::State::OPEN;
@@ -70,4 +76,8 @@ void AStar::applyPathToNode() {
         current = current->parent;
         current->state = Node::State::PATH;
     }
+}
+
+int AStar::calculateSizeOpenAllocation(Vector2d<unsigned int> &size) {
+    return (size.x + size.y) / 2;
 }

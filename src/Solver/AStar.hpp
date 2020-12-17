@@ -55,6 +55,13 @@ private:
      * From the finishing node, will set the solution path in the nodes
      */
     void applyPathToNode();
+
+    /**
+     * Calculate the size for the allocation of the open heap
+     * @param size
+     * @return the size of the allocation
+     */
+    int calculateSizeOpenAllocation(Vector2d<unsigned int> &size);
 };
 
 

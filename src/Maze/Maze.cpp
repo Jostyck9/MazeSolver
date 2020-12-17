@@ -85,3 +85,7 @@ std::string Maze::printColor(Maze::Color color) const {
 void Maze::setDisplayColor(bool displayColor) {
     _displayColor = displayColor;
 }
+
+Vector2d<unsigned int> &Maze::getSize() {
+    return _size;
+}
